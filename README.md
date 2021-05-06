@@ -59,6 +59,12 @@ RUN composer install && chown -R www-data:www-data .
 
 `docker run --name your-project-container --rm --network="host" your-project-image`
 
+5. Run migrations:
+
+`docker exec your-project-container php artisan migrate`
+
+Migrations are not ran automatically, because you shouldn't do it in Laravael production mode. So it must be done manually within the Docker container.
+
 ## Used software
 
 - Alpine Linux
