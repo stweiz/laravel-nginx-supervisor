@@ -17,13 +17,16 @@ Note: The Laravel worker has its queue locally. This means:
 ## Setup
 
 1. Create a Dockerfile in your project, which looks like this:
+
 ```
 FROM bausparkadse/laravel-nginx-supervisor:<version>
 
 COPY . .
 RUN composer install && chown -R www-data:www-data .
 ```
+
 2. Your project tree should look like this from the root:
+
 ```
 ├── app
 ├── artisan
@@ -47,6 +50,7 @@ RUN composer install && chown -R www-data:www-data .
 ├── storage
 └── tests
 ```
+
 3. Build an image of your project:
 
 `docker build -t your-project-image .`
