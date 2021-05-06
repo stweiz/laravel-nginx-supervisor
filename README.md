@@ -48,8 +48,11 @@ RUN composer install && chown -R www-data:www-data .
 └── tests
 ```
 3. Build an image of your project:
+
 `docker build -t your-project-image .`
+
 4. Run it like this, so it can connect to your MySQL server, which is exposed to the host system:
+
 `docker run --name your-project-container --rm --network="host" your-project-image`
 
 ## Used software
