@@ -32,4 +32,7 @@ RUN set -x && \
     fi && \
     apk del .cert-deps && \
     apk add -X "https://nginx.org/packages/alpine/v$(egrep -o '^[0-9]+\.[0-9]+' /etc/alpine-release)/main" --no-cache $nginxPackages && \
+    rm /etc/nginx/conf.d/default.conf && \
+    mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" && \
+    cp docker/nginx/app.conf /etc/nginx/conf.d && \
     docker-php-ext-install pcntl pdo pdo_mysql
