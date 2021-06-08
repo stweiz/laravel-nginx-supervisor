@@ -13,7 +13,8 @@ COPY --from=composer:2.0 /usr/bin/composer /usr/local/bin/composer
 COPY docker/ docker/
 
 RUN set -x && \
-    apk add --no-cache curl ca-certificates supervisor && \
+    apk add --no-cache curl ca-certificates supervisor \
+    libjpeg-turbo libjpeg-turbo-dev libpng libpng-dev libzip-dev freetype freetype-dev zip && \
     nginxPackages=" \
     nginx=${NGINX_VERSION}-r${PKG_RELEASE} \
     nginx-module-xslt=${NGINX_VERSION}-r${PKG_RELEASE} \
@@ -35,4 +36,6 @@ RUN set -x && \
     rm /etc/nginx/conf.d/default.conf && \
     mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" && \
     cp docker/nginx/app.conf /etc/nginx/conf.d && \
-    docker-php-ext-install pcntl pdo pdo_mysql
+    docker-php-ext-configure gd --with-freetype --with-jpeg && \
+    docker-php-ext-install gd pcntl pdo pdo_mysql zip && \
+    apk del --no-cache freetype-dev libpng-dev libjpeg-turbo-dev
